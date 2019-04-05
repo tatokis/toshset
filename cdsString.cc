@@ -503,7 +503,7 @@ operator>>(istream&         s,
   // read in up to (not including) white space
   //
 {
- long flags = s.flags();
+ std::ios_base::fmtflags flags = s.flags();
  if (flags & ios::skipws) s >> ws;
  s.unsetf(ios::skipws);
  x = "";
