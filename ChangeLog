@@ -1,0 +1,664 @@
+2010-02-12  c  <schwitrs@ivy>
+
+	* cdsString.cc: added parentheses to prevent gcc warning message
+
+	* cdsSStream.hh: added include to get c's EOF def
+
+	* index.html.in: 1.75 version
+
+	* toshset.cc: HciFeature::action:
+	  fix to allow option-by-number to have value greater than a single digit.
+
+	* toshibaIDs.cc: aded ids 0xe873, 0xfc76
+
+	* Makefile.in, novatel_3g_suspend:
+	added script contributed by Anssi Saari to reset the Novatel 3G modem
+	before suspend so that it wakes in a working state.
+
+2009-06-04  c  <schwitrs@ivy>
+
+	* toshset.cc: changed 3g modem option name
+
+	* hci.h, toshset.1, toshset.cc:
+	added support for internal 3g modem - thanks to Michele Valzelli
+
+	* kernelInterface.c: smmAccess:
+	  print informative message if  /dev/toshiba can't be read
+
+	* toshset.1, toshset.cc:
+	update such that root access is no longer required-
+	 only read/write /dev/toshiba is now required.
+
+	* kernelInterface.c: update to properly use USE_KERNEL_INTERFACE
+
+	* inst.tmp, new.tmp, old.tmp: removed
+
+	* hci.h, toshset.cc:
+	added new fan speed - thanks to the efforts of Rob Rutten
+	updated argument processing to use numeric specifier >9
+
+2009-02-15  c  <schwitrs@ivy>
+
+	* Makefile.in: make sure direct.o gets linked...
+
+	* index.html.in: 1.74 mods
+
+	* Makefile.in: C_SRC: removed direct.c
+
+	* direct64.c: nonworking 64 bit direction BIOS access code
+
+	* index.html.in: previous version
+
+	* toshset.cc: added video resolutions
+	transreflective mode: reversed the meaning of on/off
+	added fan modes
+
+	* hci.h: added fan modes. The naming should be rationalized.
+
+2009-01-10  c  <schwitrs@ivy>
+
+	* hci.h: added three new resolutions
+
+	* toshibaIDs.cc: added 0x0db0; updated 0xfcff
+
+2008-03-21  c  <schwitrs@ivy>
+
+	* Makefile.in: added direct??.c to distributed files
+
+	* config.log, config.cache: unneeded file
+
+	* configure: updated VERSION
+
+	* config.sub: updated from libtool for support for amd64
+
+2008-03-20  c  <schwitrs@ivy>
+
+	* config.status: shouldn't be in CVS
+
+	* Makefile.in: added support for 64-bit direct.c
+
+	* toshset.cc: transrelective status switch
+
+	* toshset.1, toshset.cc: added support for transreflective displays.
+	Thank you to Laurent L\'eonard  for working this out.
+
+	* toshibaIDs.cc: added fc0d, updated fcff
+
+	* hci.h: added HCI_TR_BACKLIGHT
+
+	* direct.c, direct32.c: renamed direct.c --> direct32.c
+
+2006-09-17  c  <schwitrs@ivy>
+
+	* index.html.in: 1.72 updates
+
+	* TODO: *** empty log message ***
+
+	* index.html.in: added link to site for help w/ acpi problems.
+
+	* toshibaIDs.cc: added machines ids fc5b, fca2, fca6
+	updated fcff
+
+	* toshset.cc: fixup for reporting sci version
+	addition to unrecognized machine warning.
+
+2005-10-10  c  <schwitrs@ivy>
+
+	* index.html.in: *** empty log message ***
+
+2005-10-09  c  <schwitrs@ivy>
+
+	* toshibaIDs.cc: added ids fc67 and fcf1
+
+	* toshset.cc: battery feature:
+	  fixed to correctly treat errors.
+	BluetoothFeature::action:
+	  fixed message string.
+	Fixed reporting on second battery status.
+
+2005-08-13  c  <schwitrs@ivy>
+
+	* toshibaIDs.cc: added id fca7
+
+	* cdsMath.cc: now grab abs() from std- needed for gcc-4
+
+2005-06-25  c  <schwitrs@ivy>
+
+	* index.html.in: *** empty log message ***
+
+	* toshset.1: updated dates
+	adde docs for -fast option
+
+	* toshset.cc:
+	added -fast command line option- skips a startup check, and doesn't
+	   perform query after set action.
+
+	* toshibaIDs.cc: updated machine ids 0xfc54, 0xfc54, 0xfcff
+
+	* index.html.in: changes suggested by John Belmonte.
+
+	* README: changes suggested by John Belmonte
+
+	* Notes: document where ioctl calls are.
+
+2005-04-09  c  <schwitrs@ivy>
+
+	* index.html.in, config.status: *** empty log message ***
+
+	* Makefile.in: install rule:
+	  create destination directories (if they don't exist)
+	  correctly treat autoconf's DESTDIR variable.
+
+	* toshibaIDs.cc: added machine ids:
+	    0xfc98 0xfcb5
+	updated ids:
+	    0xfc01 0xfc53 0xfc7a 0xfcff
+
+	* toshset.cc: workaround for problems compiling under gcc-3.4
+
+2004-09-28  c  <schwitrs@ivy>
+
+	* toshset.cc:
+	ownerstring action: added allowedFailures to prevent an infinite loop.
+
+2004-09-06  c  <schwitrs@ivy>
+
+	* index.html.in: *** empty log message ***
+
+	* toshibaIDs.cc: added id: 0xfc70
+	updated id: 0xfcff
+
+	* hci.h: added HCI_BUSY entry
+
+	* toshset.cc:
+	HciFeature::query: added wait loop if HCI_BUSY is returned.
+
+2004-07-11  c  <schwitrs@ivy>
+
+	* sci.h: new features added by G. L. Gragnani
+
+2004-07-06  c  <schwitrs@ivy>
+
+	* toshset.1: Documentation of features added by Gian Luigi Gragnani.
+
+	* toshset.cc: added new features:
+	  USB legacy mode, USB FDD emulation mode, LAN controller, sound logo,
+	  startup logo
+
+	contributed by G. L. Gragnani
+
+	* index.html.in: *** empty log message ***
+
+2004-05-31  c  <schwitrs@ivy>
+
+	* index.html.in, Makefile.in: *** empty log message ***
+
+	* Makefile.in: adding version tag to cvs
+
+	* Makefile.in: removed optimization (causes segfaults under gcc-3.3.3)
+	removed explicit rules for some .o files
+	added explicit .c.o rule
+
+	* Makefile.in: added explicit rule for direct.c
+
+	* Makefile.in: HEADERS: added direct.h
+
+	* index.html.in: *** empty log message ***
+
+	* toshset.cc: changed id string for HC/SCI access mode
+	changed order of model, access features
+
+	* Makefile.in: C_SRC: added direct.c
+
+2004-04-30  c  <schwitrs@ivy>
+
+	* sci.c: SciSet kernel access fixup
+
+2004-04-20  c  <schwitrs@ivy>
+
+	* toshibaIDs.cc: added machine ids: 0xfc01, 0xfc7b
+	machine id 0xfc13: spelling fix
+
+	* toshset.1: added blurb about direct/kernel HCI/SCI access
+
+	* toshset.cc: added AccessFeature, accessMode determination
+
+	* kernelInterface.c, kernelInterface.h:
+	added code for determining SCI/HCI access mode
+
+	* hci.c, sci.c, direct.c, direct.h:
+	moved all direct asm calls from sci.c and hci.c to direct.c
+
+2004-03-06  c  <schwitrs@ivy>
+
+	* hci.h: added HCI_LCD_BRIGHTNESS def
+
+	* toshset.cc: added LCDIntensityFeature, -inten flag
+
+	* toshset.1: added -iten docs
+	updated ACPI blurb
+
+2004-03-01  c  <schwitrs@ivy>
+
+	* Makefile.in: added missing source files, updated dist rule for cvs
+
+	* ChangeLog: *** empty log message ***
+
+	* ChangeLog: blah
+
+	* Makefile: *** empty log message ***
+
+	* Makefile: updates
+
+2004-02-28  c  <schwitrs@ivy>
+
+	* t.tmp: *** empty log message ***
+
+	* sci.c: removed unused code
+
+	* ChangeLog: *** empty log message ***
+
+	* Makefile.in: make -DUSE_KERNEL_INTERFACE default
+	install rule: create target directories if they don't already exist.
+
+	* index.html.in: document wireless/bluetooth functionality
+
+	* toshset.cc:
+	hibernation features: don't print ugly error messages if not supported
+	  (and -v isn't specifed)
+	wirelessFeature: added value: 0 for not present (distinct from NOT_SUPPORTED)
+
+	* hci.h: added 1280x600 flat panel resolution
+
+	* toshibaIDs.cc: added 0xfc5d
+	updated 0xfc72 and 0xfcb0
+
+	* External Interface for Hibernation Utility.txt, Internal Bluetooth control BIOS interface.doc, lphdisk-0.9.tar.gz:
+	re-added
+
+2004-02-26  c  <schwitrs@ivy>
+
+	* External Interface for Hibernation Utility.txt, Internal Bluetooth control BIOS interface.doc:
+	*** empty log message ***
+
+	* .fsync-skip, External Interface for Hibernation Utility.txt, Internal Bluetooth control BIOS interface.doc, Makefile, Notes, SCI&HCI.txt, TODO, config.cache, config.log, config.status, getScan.cc, gui.py, hib.py, hibFile.txt, inst.tmp, matrix, new.tmp, old.tmp, t.tmp:
+	.
+
+2003-11-22  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshibaIDs.cc: added the following machine ids:
+	   0xfcac 0xfcf5 0xfcf6 0xfcf7 0xfcf8 0xfcff
+	updated the following ids:
+	   0xfc17 0xfc68 0xfc72
+
+	* toshset.1: document -bluetooth
+	added warning blurb about acpi kernels
+
+	* toshset.cc: added WirelessFeature, BluetoothFeature
+	cleaned up hibernation info output
+
+2003-09-27  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* hci.h: added HCI_1400_1050
+
+	* toshset.cc: added 1400x1050 resolution to flatpanel output
+
+	* toshset.cc:
+	changed order of fan settings based on feedback from Tim Barbour
+
+2003-09-20  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* hci.h, toshset.cc: added experimental fan modes
+
+	* toshibaIDs.cc:
+	added these ids: 0xfc0b 0xfc73 0xfc8b 0xfc8c 0xfcb0 0xfcf3
+
+	* README: fixed typo
+
+2003-06-14  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* Makefile.in: fixed the toshset-static rule
+
+	* ChangeLog: *** empty log message ***
+
+	* Makefile.in: CFLAGS: added -I include dir
+
+	* ChangeLog: *** empty log message ***
+
+	* cdsList.hh:
+	switch to using new-style (stupid) headers without trailing .h
+
+	* cdsString.cc:
+	switch to using new-style (stupid) headers without trailing .h
+	switch from strstream to cdsSStream
+
+	* cdsExcept.hh, cdsSStream.hh, cdsMath.cc, cdsMath.hh, cdsSStream.cc:
+	New file.
+
+	* cdsString.hh:
+	updated to use new style (stupid) headers without trailing .h
+	make resize() member public
+
+	* toshset.cc: updated to work with gcc-3.3:
+	  now use new-style (stupid) headers without trailing .h
+	  removed strstream, replaced with cdsSStream
+
+	* toshibaIDs.cc:
+	updated entry for Satellite 2100 to list both CDS and CDT models
+	added entry for the Satellite 1410-604
+
+2003-03-22  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshibaIDs.cc: added four ids
+
+	* toshset.cc:
+	give better diagnostic message if the machine id is completely bogus.
+
+2003-01-18  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshibaIDs.cc: added machine ids
+
+2003-01-02  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* hci.h: typo fix
+
+	* ChangeLog: *** empty log message ***
+
+	* hci.h, toshset.cc: LCDFeature::query: added resolution
+
+	* toshibaIDs.cc: added machine ids
+
+2002-11-24  c  <schwitrs@ivy>
+
+	* README: added blurb on kernel interface.
+
+	* index.html.in: updated what's new.
+
+	* ChangeLog: *** empty log message ***
+
+	* Makefile.in: added header file
+
+	* ChangeLog: *** empty log message ***
+
+	* kernelInterface.c, kernelInterface.h: New file.
+
+	* index.html.in: added notice of toshset-announce mailing list.
+
+	* hci.c: added optional support for kernel hardware interface
+
+	* sci.c: added optional support for kernel hardware interface
+	required some rearrangement of sci use of SMMRegisters.
+
+	* hci.h, sci.h: mods for kernle interface
+
+	* toshset.1: updated entry for -autooff option
+
+	* Makefile.in: added toshibaIDs.cc
+
+	* toshibaIDs.cc, toshibaIDs.hh: New file.
+
+	* toshset.cc: added optional support for toshiba kernel interface.
+	added ModelFeature to get model string.
+	fixes for system auto-off feature. I've never tripped it, though.
+	deal better with state info after switching video modes.
+	Enabled second-battery sensing. Does it work?
+	removed model ids to toshibaIDs.cc.
+
+2002-11-11  c  <schwitrs@ivy>
+
+	* Makefile.in:
+	added (commented-out) support for use of toshiba kernel interface
+	updated for gcc-3 arch flags
+
+2002-09-12  c  <schwitrs@ivy>
+
+	* toshset.1: updated video modes, setting by index
+
+	* ChangeLog: *** empty log message ***
+
+	* Makefile.in: added README.video
+
+	* index.html.in: added video mode note
+
+	* toshset.cc: added three new video out modes. What are they for?
+	allow setting features by index number
+	added two machine ids
+
+	* README.video: New file.
+
+2002-08-06  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.cc: new machine ids
+	work on hibernation support:
+		BIOS/MEMORY/VRAM size
+	        still doesn't work.
+
+2002-06-17  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.cc: added three new machine ids
+
+2002-05-18  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* wildmat.c: fix casting warning messages
+
+	* sci.c: fixes for asm code: now compiles under gcc-3.0
+
+	* toshset.cc: added hardware ids for: Satellite 2140CDS
+				Portage 7140CT
+				Satellite Pro 6000
+	added pointerFeature, -pointer cmdline option. Don't know what it's for.
+	removed argVersion, replaced with versionFeature
+	fix in ArgSet::action
+
+2002-04-21  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* index.html.in: New file.
+
+	* Makefile.in: added web-dist rule
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.cc: added machine codes for
+		Satellite Pro 4600
+		Tecra 8200 PT8200U
+		Satellite PS287A
+		Satellite 5005-S507
+		Satellite 5100-201
+
+2002-03-16  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.cc: added Portege 3480CT machine id
+
+2002-03-03  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.cc: added Satellite 18050S274
+
+2002-02-12  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.cc: added machine id 0xfc5a
+
+2002-01-30  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* toshset.1: added docs for -ostring -spasswd -upasswd
+	changed copyright date
+	document use of ``-'' for option setting.
+
+	* hci.c: cleanup
+
+	* sci.c: cleanup
+	added extra element to stack, as done in hciFunction
+	added memory to asm protected area
+
+	* Makefile.in: dist: removed distclean dependency
+
+	* toshset.cc:
+	fixed bug in argset which caused segfaults if >1 option specified
+	fixed upasswd, spasswd support
+
+2002-01-29  c  <schwitrs@ivy>
+
+	* ChangeLog: *** empty log message ***
+
+	* Makefile.in: added README, ChangeLog to FILES
+
+2002-01-28  c  <schwitrs@ivy>
+
+	* Makefile.in: added smm.h
+
+	* toshset.cc: owner string
+	argument option ``-''
+
+	* smm.h: New file.
+
+	* hci.c: removed segfault signal hack
+	replaced with extra element on stack hack
+
+	* cdsString.cc, cdsString.hh: replaced with CDSlib template version
+
+	* toshset.1: updated owner string, ``-'' argument
+
+2002-01-23  c  <schwitrs@ivy>
+
+	* ChangeLog: New file.
+
+	* sci.h: moved SMMRegisters to smm.h
+
+	* hci.h: replaced HciRegisters w/ SMMRegisters
+	added HCI_POWER_UP (from toshiba hibernation file docs)
+
+	* toshset.cc: changed: HciRegisters --> SSMRegisters
+	OwnerString: setting and querying now works
+
+	* hci.c: HciFunction: now set all SSM registers
+	involves major hack to get around segfault in asm: catch signal and restart.
+
+2002-01-19  c  <schwitrs@ivy>
+
+	* toshset.cc: added fc64 machine code
+
+	* Makefile.in: *** empty log message ***
+
+	* toshset.cc: disable boot device info for now
+
+	* Makefile.in: *** empty log message ***
+
+	* Makefile.in: dist fixes
+
+	* Makefile.in: *** empty log message ***
+
+	* Makefile.in: added easier means to change version number
+	do rcs-checkin before dist
+
+	* configure.in: remove explicit version number
+
+	* configure.in: *** empty log message ***
+
+	* hci.h: added HCI_TVOUT
+
+	* sci.h: undid attempt to use new and old style SCI register names
+
+	* sci.c: work to try to get password stuff working
+
+	* toshset.cc: to videoFeature: added support for the tv-out port
+	work on getting hibernation working:
+		added LbaFeature
+
+2001-12-21  c  <schwitrs@ivy>
+
+	* toshset.cc: added satellite 5005-s504
+
+2001-11-04  c  <schwitrs@ivy>
+
+	* toshset.cc: changed SciRegisters --> SMMRegisters
+	added -version option
+	added machine id 0xfc54
+	allow to be run suid, if anyone is so foolish
+
+2001-06-11  c  <schwitrs@ivy>
+
+	* toshset.cc: messed w/ passwd stuff: doesn't work yet.
+	a bit more support for hibernation info
+	added machine id fc02
+
+2001-05-14  c  <schwitrs@ivy>
+
+	* Makefile.in: *** empty log message ***
+
+	* Makefile.in: added rcs-checkin rule
+	added note to mail debian maintainer
+	added rule toshset-static rule
+
+	* hci.h: changed HCI codes for video out mode
+
+	* sci.c:
+	copied Jonathan's new code for SciSet. Motivated by passwd stuff.
+
+	* sci.h: merged SMM and SciRegisters using anonymous unions
+
+	* cdsString.cc: operator==: fix for compiler warning
+
+	* hci.c: redid HciGetMachineID- stuff from Jonathan's kernel module
+
+	* configure.in: version change
+
+	* toshset.cc:
+	screwed around with PasswdFeature, not getting it to work.
+	dumb fixes
+	scads of new machine ids
+	fixed email to point to me
+	added ``other'' cooling feature
+	irFeature enabled
+	-boot flag added
+
+2000-07-07  c  <schwitrs@ivy>
+
+	* toshset.cc: *** empty log message ***
+
+	* toshset.cc: added rcsversion
+
+2000-07-04  c  <schwitrs@ivy>
+
+	* cdsString.cc, cdsString.hh, configure: New file.
+
+	* Makefile.in, README, configure.in, sci.h, toshset.cc:
+	fixes for manpages, arch-dep bin dir, version
+
+	* toshset.1, wildmat.c, wildmat.h: New file.
+
+2000-02-02  c  <schwitrs@ivy>
+
+	* README, toshset.cc: *** empty log message ***
+
+	* README, cdsList.cc, cdsList.hh, config.guess, config.sub, configure.in, hci.c, hci.h, install-sh, sci.c, sci.h, toshset.cc, Makefile.in:
+	New file.
+

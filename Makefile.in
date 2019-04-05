@@ -1,0 +1,321 @@
+# Makefile.in -- template makefile for compiling the toshset utility
+#
+# $Log: Makefile.in,v $
+# Revision 1.36  2010-02-12 16:27:36  schwitrs
+# added script contributed by Anssi Saari to reset the Novatel 3G modem
+# before suspend so that it wakes in a working state.
+#
+# Revision 1.35  2009-02-15 14:05:12  schwitrs
+# make sure direct.o gets linked...
+#
+# Revision 1.34  2009-02-15 13:48:45  schwitrs
+# C_SRC: removed direct.c
+#
+# Revision 1.33  2008-03-22 01:07:27  schwitrs
+# added direct??.c to distributed files
+#
+# Revision 1.32  2008-03-21 02:28:29  schwitrs
+# added support for 64-bit direct.c
+#
+# Revision 1.31  2005/04/10 01:16:14  schwitrs
+# install rule:
+#   create destination directories (if they don't exist)
+#   correctly treat autoconf's DESTDIR variable.
+#
+# Revision 1.30  2004/05/31 20:48:34  schwitrs
+# *** empty log message ***
+#
+# Revision 1.29  2004/05/31 20:43:20  schwitrs
+# *** empty log message ***
+#
+# Revision 1.28  2004/05/31 20:39:13  schwitrs
+# adding version tag to cvs
+#
+# Revision 1.27  2004/05/31 20:28:20  schwitrs
+# removed optimization (causes segfaults under gcc-3.3.3)
+# removed explicit rules for some .o files
+# added explicit .c.o rule
+#
+# Revision 1.26  2004/05/31 17:51:01  schwitrs
+# added explicit rule for direct.c
+#
+# Revision 1.25  2004/05/31 17:44:01  schwitrs
+# HEADERS: added direct.h
+#
+# Revision 1.24  2004/05/31 17:10:00  schwitrs
+# C_SRC: added direct.c
+#
+# Revision 1.23  2004/03/01 23:55:22  schwitrs
+# added missing source files, updated dist rule for cvs
+#
+# Revision 1.22  2004/02/28 15:25:02  schwitrs
+# make -DUSE_KERNEL_INTERFACE default
+# install rule: create target directories if they don't already exist.
+#
+# Revision 1.21  2003/06/15 00:12:23  schwitrs
+# fixed the toshset-static rule
+#
+# Revision 1.20  2003/06/14 23:15:04  schwitrs
+# CFLAGS: added -I include dir
+#
+# Revision 1.19  2002/11/24 19:56:51  schwitrs
+# added header file
+#
+# Revision 1.18  2002/11/24 19:46:00  schwitrs
+# added toshibaIDs.cc
+#
+# Revision 1.17  2002/11/11 22:07:45  schwitrs
+# added (commented-out) support for use of toshiba kernel interface
+# updated for gcc-3 arch flags
+#
+# Revision 1.16  2002/09/13 02:25:26  schwitrs
+# added README.video
+#
+# Revision 1.15  2002/04/21 18:31:16  schwitrs
+# added web-dist rule
+#
+# Revision 1.14  2002/01/30 18:31:37  schwitrs
+# dist: removed distclean dependency
+#
+# Revision 1.13  2002/01/29 12:26:14  schwitrs
+# added README, ChangeLog to FILES
+#
+# Revision 1.12  2002/01/29 01:43:54  schwitrs
+# added smm.h
+#
+# Revision 1.11  2002/01/19 23:45:27  schwitrs
+# *** empty log message ***
+#
+# Revision 1.10  2002/01/19 23:29:53  schwitrs
+# *** empty log message ***
+#
+# Revision 1.9  2002/01/19 23:28:16  schwitrs
+# *** empty log message ***
+#
+# Revision 1.8  2002/01/19 23:26:54  schwitrs
+# *** empty log message ***
+#
+# Revision 1.7  2002/01/19 23:24:51  schwitrs
+# dist fixes
+#
+# Revision 1.6  2002/01/19 23:20:51  schwitrs
+# *** empty log message ***
+#
+# Revision 1.5  2002/01/19 23:16:23  schwitrs
+# added easier means to change version number
+# do rcs-checkin before dist
+#
+# Revision 1.4  2001/05/14 16:53:12  schwitrs
+# *** empty log message ***
+#
+# Revision 1.3  2001/05/14 16:39:51  schwitrs
+# added rcs-checkin rule
+# added note to mail debian maintainer
+# added rule toshset-static rule
+#
+# Revision 1.2  2000/07/04 15:16:58  schwitrs
+# fixes for manpages, arch-dep bin dir, version
+#
+# Revision 1.1  2000/02/03 02:45:47  schwitrs
+# Initial revision
+#
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software 
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#
+#
+
+VERSION = @VERSION@
+
+WEB_LOC    = $(HOME)/public_html/toshset
+STATIC_EXE = /tmp/toshset-$(VERSION)/bin.$(ARCH)/toshset-static
+
+INSTALL = @INSTALL@
+BININSTALL = @INSTALL_PROGRAM@  -D -m 755
+MANINSTALL = @INSTALL_DATA@  -D -m 644
+prefix = @prefix@
+BINDESTDIR = @prefix@/bin
+MANDESTDIR = @mandir@/man1
+
+
+LDFLAGS = -s
+
+PROGRAMS = @PROGRAMS@
+MANPAGES = @MANPAGES@
+CC = @CC@
+#CXX= g++
+DEFS = -DUSE_KERNEL_INTERFACE
+#CFLAGS = -march=i486 -Wall @OS_CFLAGS@ @DEBUGFLAGS@
+CFLAGS = -Wall @OS_CFLAGS@ @DEBUGFLAGS@
+CFLAGS += -I..
+CFLAGS += $(DEFS)
+CXXFLAGS = -DCPLUSPLUS
+
+HEADERS = cdsList.hh  cdsString.hh  hci.h  sci.h  wildmat.h smm.h \
+	kernelInterface.h toshibaIDs.hh cdsMath.hh cdsSStream.hh \
+	cdsExcept.hh direct.h
+C_SRC = sci.c hci.c wildmat.c kernelInterface.c
+CXX_SRC = toshset.cc cdsList.cc cdsString.cc toshibaIDs.cc \
+		cdsSStream.cc cdsMath.cc
+
+FILES = $(C_SRC) $(CXX_SRC) $(HEADERS) Makefile.in configure.in toshset.1 \
+	install-sh config.sub config.guess README ChangeLog index.html.in \
+	README.video
+
+TOBJS = $(C_SRC:.c=.o) $(CXX_SRC:.cc=.o)
+
+#ifeq ($(ARCH),)
+    ARCH=$(shell uname -sr|sed 's/\.[0-9]\+\(-[0-9]\+\)\?$$/_/'|sed 's/ /_/g')
+    ARCH:= $(ARCH)$(shell uname -m)
+#endif
+ARCHDIR=bin.$(ARCH)
+
+
+all: $(ARCHDIR) arch-all
+#depend: $(ARCHDIR) arch-depend
+
+#
+# get to the correct (architecture-dependent) directory 
+#
+ifeq ($(ARCHDEP),)
+
+
+#rcs-checkin:
+#	su $(LOGNAME) -c "ci -l $(FILES)"
+#	#chown schwitrs.schwitrs $(FILES)
+
+cvs-commit:
+	su $(LOGNAME) -c "cvs -q commit"
+
+
+clean:
+	rm -rf $(ARCHDIR)
+	rm -f Makefile.old 
+distclean: clean
+	rm -f core config.status config.cache config.log Makefile *~
+dist: cvs-commit
+	(echo -n "new version: ";\
+	read newVersion; \
+	tag=`echo toshset-$$newVersion | sed 's/\./_/g'`; \
+	cvs tag -d $$tag; \
+	cvs tag $$tag; \
+	rm -f ChangeLog; \
+	rcs2log > ChangeLog; \
+	rm -rf /tmp/toshset-$$newVersion; \
+	mkdir /tmp/toshset-$$newVersion; \
+	cp $(FILES) direct32.c direct64.c /tmp/toshset-$$newVersion; \
+	sed 's/__VERSION__/'$$newVersion'/g' <configure.in \
+		>/tmp/toshset-$$newVersion/configure.in; \
+	cd /tmp/toshset-$$newVersion; \
+	rm -f Makefile; \
+	find -type d | xargs chmod 755; \
+	find -type f | xargs chmod 644; \
+	find -type d | xargs chown root:root; \
+	find -type f | xargs chown root:root; \
+	autoconf; \
+	chmod 755 install-sh; \
+	cd ..; \
+	tar cvf - toshset-$$newVersion | \
+		gzip -9 > toshset-$$newVersion.tgz; \
+	echo Done.)
+	echo "mail toshset-announce with update notice"
+web-dist: /tmp/toshset-$(VERSION).tgz $(STATIC_EXE)
+	cp $< $(WEB_LOC)
+
+	rm -f $(WEB_LOC)/toshset.tar.gz
+	rm -f $(WEB_LOC)/toshset.tgz
+	ln $(WEB_LOC)/toshset-$(VERSION).tgz $(WEB_LOC)/toshset.tar.gz
+	ln $(WEB_LOC)/toshset-$(VERSION).tgz $(WEB_LOC)/toshset.tgz
+
+	gzip -9 <$(STATIC_EXE) > $(WEB_LOC)/toshset.gz
+	sed 's/__VERSION__/'$(VERSION)'/g' <index.html.in \
+		> $(WEB_LOC)/index.html
+
+
+depend: $(ARCHDIR)
+	$(CC) $(CFLAGS) -M $(C_SRC) |\
+	sed 's/\/usr\/[^ ]* *//g;/^  \\$$/d' |\
+	grep -v '^ \\$$' >$(ARCHDIR)/Makefile.dep
+	$(CXX) $(CFLAGS) -M $(CXX_SRC) |\
+	sed 's/\/usr\/[^ ]* *//g;/^  \\$$/d' |\
+	grep -v '^ \\$$' >>$(ARCHDIR)/Makefile.dep
+$(ARCHDIR):
+	mkdir $(ARCHDIR)
+ % : 
+	cd $(ARCHDIR); $(MAKE) -f ../Makefile ARCHDEP=TRUE $@
+
+else
+#architecture-dependent rules
+
+VPATH:=..
+
+# cancel the default rule
+% : RCS/%,v
+
+#get the correct version of direct.c
+#
+ifneq ($(findstring x86_64,$(ARCH)),)
+#64 bit
+direct.c: direct64.c
+	ln -s $< $@
+else
+#32 bit
+direct.c: direct32.c
+	ln -s $< $@
+endif
+
+%.d: %.c
+	$(CC) $(CFLAGS) -M $< >$@
+%.d: %.cc
+	$(CXX) $(CFLAGS) $(CXXFLAGS) -M $< >$@
+
+
+include $(CXX_SRC:.cc=.d)
+include $(C_SRC:.c=.d)
+
+
+.c.o:
+	$(CC) $(CFLAGS) \
+		-DVERSION=\"$(VERSION)\" -DBINDIR=\"$(BINDESTDIR)\" -c $<
+.cc.o:
+	$(CXX) $(CFLAGS) $(CXXFLAGS) \
+		-DVERSION=\"$(VERSION)\" -DBINDIR=\"$(BINDESTDIR)\" -c $<
+
+
+arch-all: $(PROGRAMS)
+
+toshset: $(TOBJS) direct.o
+	$(CXX) $(LDFLAGS) -g -o $@ $^ $(WMLIBS)
+
+toshset-static: $(TOBJS) direct.o
+	$(CXX) -static $(LDFLAGS) -g -o $@ $^ $(WMLIBS)
+
+install: all
+	@mkdir -p $(DESTDIR)$(BINDESTDIR)
+	@mkdir -p $(DESTDIR)$(MANDESTDIR)
+	$(DESTDIR)/pm/sleep.d/
+	for program in $(PROGRAMS); do \
+		$(BININSTALL) $$program $(DESTDIR)/$(BINDESTDIR)/$$program;\
+	done
+	$(BININSTALL) novatel_3g_suspend $(DESTDIR)/pm/sleep.d/
+	(cd ..;\
+	for manpage in $(MANPAGES); do \
+		$(MANINSTALL) $$manpage $(DESTDIR)/$(MANDESTDIR)/$$manpage;\
+	done)
+
+
+
+
+endif
+#----- dependences -----

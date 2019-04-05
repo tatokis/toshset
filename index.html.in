@@ -1,0 +1,99 @@
+<title>toshset</title>
+<h1> Toshset </h1><p>
+
+    Toshset is a command-line tool allowing access to much of the
+Toshiba hardware interface. It can do things like control
+display brightness, set the fan speed, and enable the optional
+Bluetooth interface. 
+<p> 
+
+A general Toshset mailing list can be joined by visiting
+<a
+href="http://www.schwieters.org/mailman/listinfo/toshset_schwieters.org"
+>this link</a>. Once you have joined the list, toshset questions can
+be directed to 
+<a href="mailto:toshset@schwieters.org">toshset@schwieters.org</a>.
+
+<p>
+
+    Credit for the difficult task of reverse-engineering the Toshiba
+hardware interface goes to others, principly Jonathan Buzzard.
+His tools can be found at
+<a href="http://www.buzzard.org.uk/toshiba/">
+http://www.buzzard.org.uk/toshiba/
+</a>
+
+<p>
+
+Toshset can now be used under ACPI if the
+<a href="http://memebeam.org/toys/ExperimentalToshibaAcpiDriver">
+experimental toshiba acpi driver</a>
+from John Belmonte is used. This 
+<a href="http://www.flurble.org/computers/toshset.pl">
+site 
+</a>
+has additional hints if you have
+toshset trouble and are running ACPI.
+
+
+<p>
+
+The current version is __VERSION__. 
+<p>
+new:
+<ul>
+<li> added support for built-in 3G modem
+<li> added new fan mode
+<li> can now be run as nonroot user (need read/write /dev/toshiba
+  access) 
+</ul>
+not as new new:
+<ul>
+<li> added support for transreflective displays (e.g. Portege R500). Thanks
+     to Laurent L&eacute;onard.
+<li> 64-bit (AMD64) version will now build.
+<li> new and updated machine ids.
+<li> fixes for battery reporting status - now works for the second battery.
+<li> features added by G. L. Gragnani:
+      USB legacy mode, USB FDD emulation mode, LAN controller, sound logo,
+  startup logo
+<li> added sci/hci interface information to output: reports whether toshset is
+     using the kernel interface, or direct calls to the BIOS.
+<li> cleaned up SCI/HCI interface: now will only use the kernel interface 
+     if /proc/toshiba is present, and will fail if ACPI is in use, and no 
+     kernel interafce is found.
+<li> added -inten option, to control LCD brightness through the HCI
+     interface. This provides finer granularity than -lcd access, and seems 
+     to work under the latest experimental toshiba_acpi module versions.
+<li> now can query wireless status, and enable internal bluetooth
+     adapter.
+<li> now optionally uses the toshiba kernel interface (compile-time flag).
+<li> fixed autooff feature.
+<li> added three video-out modes. See README.video in the distribution.
+<li> setting the owner/user password now works
+<li> setting/querying the owner string now works
+</ul>
+<p>
+
+<p>
+source: <a href="toshset.tgz">
+tar'd and gzip'd</a><p>
+binary: <a href="toshset.gz">gzip'd (440kb)</a><br>
+64 bit binary: <a href="toshset64.gz">gzip'd (460kb)</a>
+<p>
+
+The binary should work with 2.4 and 2.6 Linux kernels. It may work for others
+as well. 
+<p>
+toshset -h for help.
+Patches, comments and the output of toshset -v -q are welcome.
+<p>
+
+To be notified when new versions of toshset are available, join the
+<a
+href="http://www.schwieters.org/mailman/listinfo/toshset-announce_schwieters.org">toshset-announce</a>
+mailing list.
+<p>
+
+mail: <a href="mailto:charles@schwieters.org">Charles@schwieters.org</a>
+
