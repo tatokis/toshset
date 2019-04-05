@@ -1,3 +1,15 @@
+This repository contains patched toshset and an updated patch for
+toshiba_acpi that applies to kernel 5.0.
+
+By default, toshset attempts to use the patched toshiba_acpi kernel
+interface. The direct method can be enabled by removing
+-DUSE_KERNEL_INTERFACE, but it causes segfaults on my tested machine
+(Satellite Pro 4200). It is thus recommended to patch the kernel
+module and use that instead.
+
+--
+
+Original README:
 
     Toshset is a command-line tool allowing access to much of the
 Toshiba hardware interface. It can do things like control
