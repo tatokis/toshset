@@ -1,6 +1,6 @@
---- linux-5.0.5/drivers/platform/x86/toshiba_acpi.c	2019-03-27 07:18:00.000000000 +0200
-+++ ../linux-5.0.5/drivers/platform/x86/toshiba_acpi.c	2019-04-03 12:02:37.215947911 +0300
-@@ -27,6 +27,21 @@
+--- linux-5.6.4_orig/drivers/platform/x86/toshiba_acpi.c	2020-04-14 10:31:29.933617489 +0300
++++ linux-5.6.4/drivers/platform/x86/toshiba_acpi.c	2020-04-14 10:32:03.656836272 +0300
+@@ -15,6 +15,21 @@
   *		engineering the Windows drivers
   *	Yasushi Nagato - changes for linux kernel 2.4 -> 2.5
   *	Rob Miller - TV out and hotkeys help
@@ -22,7 +22,7 @@
   */
  
  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-@@ -42,6 +57,9 @@
+@@ -30,6 +45,9 @@
  #include <linux/types.h>
  #include <linux/proc_fs.h>
  #include <linux/seq_file.h>
@@ -32,7 +32,15 @@
  #include <linux/backlight.h>
  #include <linux/input.h>
  #include <linux/input/sparse-keymap.h>
-@@ -229,6 +247,8 @@
+@@ -45,6 +63,7 @@
+ #include <linux/iio/iio.h>
+ #include <linux/toshiba.h>
+ #include <acpi/video.h>
++#include <linux/version.h>
+ 
+ MODULE_AUTHOR("John Belmonte");
+ MODULE_DESCRIPTION("Toshiba Laptop ACPI Extras Driver");
+@@ -217,6 +236,8 @@
  module_param(disable_hotkeys, bool, 0444);
  MODULE_PARM_DESC(disable_hotkeys, "Disables the hotkeys activation");
  
@@ -41,8 +49,8 @@
  static const struct acpi_device_id toshiba_device_ids[] = {
  	{"TOS6200", 0},
  	{"TOS6207", 0},
-@@ -1453,6 +1473,207 @@
- 	.write		= lcd_proc_write,
+@@ -1440,6 +1461,216 @@
+ 	.proc_write	= lcd_proc_write,
  };
  
 +/* /dev/toshiba and /proc/toshiba handlers {{{
@@ -192,6 +200,14 @@
 +	return single_open(file, tosh_proc_show, NULL);
 +}
 +
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 6, 0)
++static const struct proc_ops tosh_proc_fops = {
++	.proc_open		= tosh_proc_open,
++	.proc_read		= seq_read,
++	.proc_lseek		= seq_lseek,
++	.proc_release	= single_release,
++};
++#else
 +static const struct file_operations tosh_proc_fops = {
 +	.owner		= THIS_MODULE,
 +	.open		= tosh_proc_open,
@@ -199,6 +215,7 @@
 +	.llseek		= seq_lseek,
 +	.release	= single_release,
 +};
++#endif
 +
 +static int __init
 +old_driver_emulation_init(void)
@@ -249,7 +266,7 @@
  /* Video-Out */
  static int get_video_status(struct toshiba_acpi_dev *dev, u32 *status)
  {
-@@ -3062,6 +3283,7 @@
+@@ -3046,6 +3277,7 @@
  	}
  
  	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
@@ -257,7 +274,7 @@
  	if (!dev)
  		return -ENOMEM;
  	dev->acpi_dev = acpi_dev;
-@@ -3327,6 +3549,8 @@
+@@ -3311,6 +3543,8 @@
  static int __init toshiba_acpi_init(void)
  {
  	int ret;
@@ -266,7 +283,7 @@
  
  	toshiba_proc_dir = proc_mkdir(PROC_TOSHIBA, acpi_root_dir);
  	if (!toshiba_proc_dir) {
-@@ -3340,12 +3564,17 @@
+@@ -3324,12 +3558,17 @@
  		remove_proc_entry(PROC_TOSHIBA, acpi_root_dir);
  	}
  
